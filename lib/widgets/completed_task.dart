@@ -14,7 +14,10 @@ class CompletedTasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Completed Tasks'),
+        title: Text(
+          'Completed Tasks',
+          style: TextStyle(color: Colors.black),
+        ),
       ),
       body: Container(
         height: 400,
