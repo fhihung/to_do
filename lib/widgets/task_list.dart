@@ -8,7 +8,6 @@ import './completed_task.dart';
 
 class TaskList extends StatefulWidget {
   final List<Tasks> tasks;
-  // final Function deleteTx;
 
   TaskList(this.tasks);
 
@@ -21,9 +20,12 @@ class TaskListState extends State<TaskList> {
 
   void completeTask(Tasks task) {
     setState(() {
+      // sẽ xóa task ở trong List tasks
+      //sẽ add thêm task vừa xóa vào List completedTasks
       widget.tasks.remove(task);
       completedTasks.add(task);
     });
+    //Khi xóa sẽ hiển thị màn hình những task đã hoàn thành
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -48,13 +50,20 @@ class TaskListState extends State<TaskList> {
                 ),
               ],
             )
+          //listview builder kết hợp singlechildscrollview và column
+          // chỉ render khi cái phần tử xuất hiện trên màn hình
           : ListView.builder(
+              //độ dài của list
+              itemCount: widget.tasks.length,
+              //
               itemBuilder: (ctx, index) {
+                //gọi đến hàm check quá thời hạn
                 bool isOverdue =
+                    //nếu ngày mà chọn quá hạn thì sẽ return về true
                     widget.tasks[index].deadline.isBefore(DateTime.now());
                 return Card(
                   elevation: 5,
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                   child: Container(
                     height: 80,
                     child: ListTile(
@@ -94,7 +103,6 @@ class TaskListState extends State<TaskList> {
                   ),
                 );
               },
-              itemCount: widget.tasks.length,
             ),
     );
   }
